@@ -1,10 +1,30 @@
+/**
+ * Centralized HTTP client based on Axios.
+ *
+ * - Defines a single API base URL
+ * - Automatically attaches authentication headers
+ * - Handles global authentication errors
+ */
+
 import axios from "axios"
 
-const api = axios.create({
+/**
+ * Axios instance configuration
+ * - baseURL is provided through environment variables (Vite)
+ * - JSON is used as the default content type
+ */
+const httpClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
 })
 
-api.interceptors.request.use((config) => {
+/**
+ * Request interceptor
+ * Attaches the JWT token to every outgoing request if present.
+ */
+httpClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("token")
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
@@ -12,7 +32,12 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-api.interceptors.response.use(
+/**
+ * Response interceptor
+ * Handles global authentication errors.
+ * If the session is invalid, the user is redirected to the login page.
+ */
+httpClient.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401) {
@@ -23,4 +48,4 @@ api.interceptors.response.use(
   }
 )
 
-export default api
+export default httpClient
