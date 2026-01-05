@@ -1,16 +1,113 @@
-# React + Vite
+# Lite Thinking – Technical Test (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend application for the **Lite Thinking Technical Test**, built with React and Tailwind CSS.  
+Consumes a Django REST API to manage companies, products, inventory, reports, and AI-powered summaries.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## React Compiler
+- **React** (Vite)
+- **Tailwind CSS**
+- **JWT Authentication**
+- **Atomic Design** (Atoms, Molecules, Organisms)
+- **REST API integration**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📦 Project Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+- Node.js ≥ 18
+- npm
+
+### Installation
+```bash
+npm install
+```
+
+### Run in development
+```bash
+npm run dev
+```
+
+The application will be available at:
+```
+http://localhost:5173
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file at the project root:
+
+```env
+VITE_API_URL=http://localhost:8000/api
+```
+
+---
+
+## 🔐 Authentication & Roles
+
+Authentication is handled using **JWT**, stored and managed via `AuthContext`.
+
+### Roles
+
+- **Admin**
+  - Manage companies
+  - Create products
+  - Add/remove inventory items
+  - Download inventory PDF
+  - Send inventory report by email
+  - Generate AI inventory summary
+
+- **External User**
+  - View companies
+  - View inventory and reports
+
+### Demo Credentials
+
+| Role     | Username | Password   |
+|----------|----------|------------|
+| Admin    | admin    | Test1234!  |
+| External | user     | User1234!  |
+
+---
+
+## 📊 Main Features
+
+- Companies management
+- Products with multi-currency prices
+- Inventory per company
+- PDF generation (downloaded from backend)
+- Send inventory report via email
+- **AI Feature**  
+  Generates a natural language summary of the entire inventory via backend integration.
+
+---
+
+## 🧠 Architecture Notes
+
+- UI follows **Atomic Design**:
+  - `atoms`: basic UI components
+  - `molecules`: composed UI blocks
+  - `organisms`: complex UI sections
+- Pages act as orchestration layers (API + UI).
+- No business logic in frontend; all rules handled by backend.
+
+---
+
+## 📁 Project Status
+
+- Frontend implemented as part of a technical hiring test
+- Integrated with backend API
+- Focused on clarity, maintainability, and evaluation criteria
+
+---
+
+## 📌 Notes for Reviewers
+
+- This repository contains **only the frontend**.
+- Backend details (email provider, AI provider, PDF generation) are documented in the backend repository.
+- The frontend intentionally avoids overengineering to prioritize readability and correctness.

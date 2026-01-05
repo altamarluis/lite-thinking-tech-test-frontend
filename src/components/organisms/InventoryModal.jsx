@@ -1,3 +1,24 @@
+/**
+ * InventoryModal
+ * Organism component for adding products to inventory.
+ *
+ * Responsibilities:
+ * - Select company
+ * - Select product
+ * - Submit inventory association
+ *
+ * Props:
+ * - isOpen: boolean → controls modal visibility
+ * - companies: array → available companies
+ * - products: array → available products
+ * - companyNit: string → selected company
+ * - productCode: string → selected product
+ * - setCompanyNit: function → updater
+ * - setProductCode: function → updater
+ * - onSubmit: function → submit handler
+ * - onCancel: function → close modal
+ */
+
 import { X } from "lucide-react"
 import SelectField from "../molecules/SelectField"
 import Button from "../atoms/Button"

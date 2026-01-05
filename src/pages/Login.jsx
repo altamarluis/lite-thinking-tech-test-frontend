@@ -1,3 +1,9 @@
+/**
+ * Login page responsible for user authentication.
+ * Handles credential submission, error handling,
+ * and session initialization.
+ */
+
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { loginRequest } from "../api/auth.api"
@@ -11,6 +17,9 @@ export default function Login() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
+   /**
+   * Handles login form submission.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError("")

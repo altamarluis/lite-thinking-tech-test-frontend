@@ -1,6 +1,16 @@
+/**
+ * Organism component responsible for displaying inventory items.
+ * Renders inventory data in a tabular format and supports
+ * optional deletion actions.
+ */
+
 import Button from "../atoms/Button"
 import { Trash2, Archive } from "lucide-react"
 
+/**
+ * @param {Object[]} items - Inventory items to display
+ * @param {Function} onDelete - Optional delete handler
+ */
 export default function InventoryTable({ items, onDelete }) {
   return (
     <div className="overflow-x-auto">
@@ -35,6 +45,7 @@ export default function InventoryTable({ items, onDelete }) {
         </tbody>
       </table>
       
+      {/* Empty state */}
       {items.length === 0 && (
         <div className="text-center py-12 text-slate-400">
           <Archive className="w-12 h-12 mx-auto mb-3 opacity-50" />

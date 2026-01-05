@@ -1,3 +1,11 @@
+/**
+ * Molecule component that displays an AI-generated summary.
+ *
+ * Props:
+ * - summary: string → generated summary content
+ * - onClose: function → dismiss handler
+ */
+
 import { Sparkles, X } from "lucide-react"
 
 export default function SummaryCard({ summary, onClose }) {

@@ -1,3 +1,8 @@
+/**
+ * Simple fallback page for undefined routes.
+ * Provides basic user feedback and a direct link to Login.
+ */
+
 import { Link } from "react-router-dom"
 
 export default function NotFound() {

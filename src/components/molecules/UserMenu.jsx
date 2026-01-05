@@ -1,3 +1,12 @@
+/**
+ * Molecule component that displays authenticated user info
+ * and provides logout action.
+ *
+ * Props:
+ * - user: object → authenticated user data (username, isAdmin)
+ * - onLogout: function → logout handler
+ */
+
 import Avatar from "../atoms/Avatar"
 import LogoutButton from "../atoms/LogoutButton"
 

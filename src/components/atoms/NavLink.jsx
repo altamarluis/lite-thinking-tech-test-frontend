@@ -1,3 +1,13 @@
+/**
+ * Atom component used for navigation actions.
+ *
+ * Props:
+ * - path: string → route path (informational, navigation handled externally)
+ * - label: string → link text
+ * - isActive: boolean → active state styling
+ * - onClick: function → navigation handler
+ */
+
 export default function NavLink({ path, label, isActive, onClick }) {
   return (
     <button

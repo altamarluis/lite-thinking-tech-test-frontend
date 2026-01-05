@@ -1,3 +1,8 @@
+/**
+ * Reusable input atom component.
+ * Provides a consistent styled input field across the application.
+ */
+
 export default function Input({ ...props }) {
   return (
     <input

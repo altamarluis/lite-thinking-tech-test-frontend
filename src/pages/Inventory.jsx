@@ -1,3 +1,17 @@
+/**
+ * Inventory Page
+ * Page component for inventory management and reporting.
+ *
+ * Responsibilities:
+ * - List inventory items
+ * - Filter inventory by company
+ * - Create and delete inventory items (admin only)
+ * - Download inventory PDF
+ * - Send inventory report by email
+ * - Display AI-generated inventory summary
+ *
+ */
+
 import { useEffect, useState } from "react"
 import { getInventory, createInventoryItem, deleteInventoryItem, getInventoryByCompany, downloadInventoryPDF, sendInventoryEmail, getInventorySummary } from "../api/inventory.api"
 import { getCompanies } from "../api/companies.api"
@@ -24,17 +38,23 @@ export default function Inventory() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { user } = useAuth()
 
+
+  /** Load full inventory */
   const load = async () => {
     const { data } = await getInventory()
     setItems(data)
   }
 
+
+  /** Initial data load */
   useEffect(() => {
     load()
     getCompanies().then((r) => setCompanies(r.data))
     getProducts().then((r) => setProducts(r.data))
   }, [])
 
+
+  /** Create inventory item (admin) */
   const handleCreate = async () => {
     if (!companyNit || !productCode) return alert("Selecciona compañía y producto")
     await createInventoryItem({ company_nit: companyNit, product_code: productCode })
@@ -44,12 +64,16 @@ export default function Inventory() {
     load()
   }
 
+
+  /** Delete inventory item (admin) */
   const handleDelete = async (id) => {
     if (!confirm("¿Eliminar este ítem?")) return
     await deleteInventoryItem(id)
     load()
   }
 
+
+  /** Filter inventory by company */
   const handleFilter = async (nit) => {
     setFilterNit(nit)
     if (!nit) return load()
@@ -57,6 +81,8 @@ export default function Inventory() {
     setItems(data)
   }
 
+
+  /** Download inventory PDF */
   const handleDownloadPDF = async () => {
     setLoading(true)
     try {
@@ -74,6 +100,8 @@ export default function Inventory() {
     setLoading(false)
   }
 
+
+  /** Send inventory report by email */
   const handleSendEmail = async () => {
     if (!email) return alert("Ingresa un correo electrónico")
     setLoading(true)
@@ -87,6 +115,8 @@ export default function Inventory() {
     setLoading(false)
   }
 
+
+  /** Get AI inventory summary */
   const handleGetSummary = async () => {
     setLoading(true)
     try {

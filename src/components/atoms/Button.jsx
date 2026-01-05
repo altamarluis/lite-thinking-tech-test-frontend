@@ -1,3 +1,9 @@
+/**
+ * Reusable button atom component.
+ * Provides a consistent look and feel for all button variants
+ * used across the application.
+ */
+
 export default function Button({ children, variant = "primary", ...props }) {
   const variants = {
     primary: "bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white shadow-lg hover:shadow-xl",

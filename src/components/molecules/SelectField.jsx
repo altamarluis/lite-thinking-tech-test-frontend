@@ -1,3 +1,13 @@
+/**
+ * Atom component for labeled select inputs.
+ *
+ * Props:
+ * - label: string → field label
+ * - required: boolean → shows required indicator
+ * - children: ReactNode → option elements
+ * - ...props → forwarded to <select>
+ */
+
 export default function SelectField({ label, required, children, ...props }) {
   return (
     <div>

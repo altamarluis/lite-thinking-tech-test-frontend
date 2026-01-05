@@ -1,3 +1,9 @@
+/**
+ * Reusable page header component.
+ * Displays the page title, subtitle, contextual icon,
+ * and an optional primary action button.
+ */
+
 import { Building2, Plus, Package, Archive } from "lucide-react"
 import Button from "../atoms/Button"
 
@@ -7,6 +13,14 @@ const iconMap = {
   archive: Archive
 }
 
+/**
+ * @param {string} title - Page title
+ * @param {string} subtitle - Page subtitle
+ * @param {boolean} showButton - Controls visibility of the action button
+ * @param {Function} onButtonClick - Action button click handler
+ * @param {string} buttonText - Action button label
+ * @param {string} icon - Icon identifier for the header
+ */
 export default function PageHeader({ title, subtitle, showButton, onButtonClick, buttonText, icon = "building" }) {
   const Icon = iconMap[icon] || Building2
   

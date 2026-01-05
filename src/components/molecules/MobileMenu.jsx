@@ -1,3 +1,25 @@
+/**
+ * Organism component for mobile navigation drawer.
+ *
+ * Responsibilities:
+ * - Display authenticated user info
+ * - Render navigation items
+ * - Handle navigation and logout actions
+ *
+ * Props:
+ * - isOpen: boolean → controls menu visibility
+ * - user: object → authenticated user data
+ * - navItems: array → navigation configuration
+ * - currentPath: string → current route
+ * - onNavigate: function → route change handler
+ * - onLogout: function → logout handler
+ * - onClose: function → close menu
+ *
+ * Notes:
+ * - Mobile-only (hidden on md+)
+ * - Stateless, controlled by parent
+ */
+
 import { X } from "lucide-react"
 import Avatar from "../atoms/Avatar"
 

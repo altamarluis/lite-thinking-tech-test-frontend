@@ -1,6 +1,17 @@
+/**
+ * Organism component responsible for rendering the product list.
+ * Displays product information in a structured table layout
+ * and supports optional edit and delete actions.
+ */
+
 import Button from "../atoms/Button"
 import { Pencil, Trash2, Package } from "lucide-react"
 
+/**
+ * @param {Object[]} products - List of products to display
+ * @param {Function} onEdit - Optional edit handler
+ * @param {Function} onDelete - Optional delete handler
+ */
 export default function ProductTable({ products, onEdit, onDelete }) {
   return (
     <div className="overflow-x-auto">
@@ -48,6 +59,7 @@ export default function ProductTable({ products, onEdit, onDelete }) {
         </tbody>
       </table>
       
+      {/* Empty state */}
       {products.length === 0 && (
         <div className="text-center py-12 text-slate-400">
           <Package className="w-12 h-12 mx-auto mb-3 opacity-50" />

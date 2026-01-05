@@ -1,5 +1,14 @@
+/**
+ * Molecule component for sending the inventory report via email.
+ *
+ * Props:
+ * - email: string → target email address
+ * - setEmail: function → email state updater
+ * - onSend: function → send action handler
+ * - loading: boolean → disables send while processing
+ */
+
 import { Mail } from "lucide-react"
-import Button from "../atoms/Button"
 
 export default function EmailCard({ email, setEmail, onSend, loading }) {
   return (

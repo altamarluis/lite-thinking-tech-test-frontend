@@ -1,3 +1,18 @@
+
+
+/**
+ * Molecule component that groups inventory actions.
+ *
+ * Actions:
+ * - Download inventory PDF
+ * - Request AI-generated summary
+ *
+ * Props:
+ * - onDownloadPDF: function → triggers PDF generation/download
+ * - onGetSummary: function → triggers AI summary request
+ * - loading: boolean → disables actions during async operations
+ */
+
 import { Download, Sparkles } from "lucide-react"
 
 export default function ActionButtons({ onDownloadPDF, onGetSummary, loading }) {

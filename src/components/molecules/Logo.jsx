@@ -1,3 +1,7 @@
+/**
+ * Atom component representing the application brand.
+ */
+
 export default function Logo({ onClick }) {
   return (
     <div

@@ -1,3 +1,12 @@
+/**
+ * Molecule component used to filter inventory by company.
+ *
+ * Props:
+ * - companies: array → list of available companies
+ * - filterNit: string → selected company NIT
+ * - onFilterChange: function → filter change handler
+ */
+
 import { Filter } from "lucide-react"
 
 export default function FilterCard({ companies, filterNit, onFilterChange }) {

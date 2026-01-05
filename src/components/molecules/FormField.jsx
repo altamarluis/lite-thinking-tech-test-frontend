@@ -1,3 +1,8 @@
+/**
+ * Molecule component composed of a label and an input field.
+ * Used to standardize form field layout and labeling.
+ */
+
 import Input from "../atoms/Input"
 
 export default function FormField({ label, required, ...props }) {

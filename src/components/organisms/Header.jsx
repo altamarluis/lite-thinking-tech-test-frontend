@@ -1,3 +1,20 @@
+/**
+ * Organism component that renders the main application header.
+ *
+ * Responsibilities:
+ * - Display brand logo
+ * - Handle desktop and mobile navigation
+ * - Show authenticated user menu
+ *
+ * Props:
+ * - user: object → authenticated user data
+ * - navItems: array → navigation configuration
+ * - currentPath: string → current route
+ * - onLogout: function → logout handler
+ * - onLogoClick: function → logo navigation handler
+ * - onNavigate: function → route change handler
+ */
+
 import { useState } from "react"
 import Logo from "../molecules/Logo"
 import Navigation from "../molecules/Navigation"

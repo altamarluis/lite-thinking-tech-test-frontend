@@ -1,3 +1,10 @@
+/**
+ * Atom component that triggers user logout.
+ *
+ * Props:
+ * - onClick: function → logout handler
+ */
+
 import { LogOut } from "lucide-react"
 
 export default function LogoutButton({ onClick }) {
