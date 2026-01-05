@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react"
 import { getCompanies, createCompany, updateCompany, deleteCompany } from "../api/companies.api"
 import CompanyTable from "../components/organisms/CompanyTable"
-import FormField from "../components/molecules/FormField"
-import Button from "../components/atoms/Button"
+import CompanyModal from "../components/organisms/CompanyModal"
+import PageHeader from "../components/molecules/PageHeader"
 import { useAuth } from "../context/AuthContext"
+
 
 export default function Companies() {
   const [companies, setCompanies] = useState([])
   const [form, setForm] = useState({ nit: "", name: "", address: "", phone: "" })
   const [editing, setEditing] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const { user } = useAuth()
-
-  useEffect(() => {
-    console.log("User:", user)
-    console.log("Is Admin:", user?.isAdmin)
-  }, [user])
 
   const load = async () => {
     const { data } = await getCompanies()
@@ -33,17 +30,20 @@ export default function Companies() {
       await createCompany(form)
     }
     setForm({ nit: "", name: "", address: "", phone: "" })
+    setIsModalOpen(false)
     load()
   }
 
   const handleEdit = (company) => {
     setForm(company)
     setEditing(company.nit)
+    setIsModalOpen(true)
   }
 
   const handleCancel = () => {
     setForm({ nit: "", name: "", address: "", phone: "" })
     setEditing(null)
+    setIsModalOpen(false)
   }
 
   const handleDelete = async (nit) => {
@@ -52,54 +52,38 @@ export default function Companies() {
     load()
   }
 
+  const openCreateModal = () => {
+    setForm({ nit: "", name: "", address: "", phone: "" })
+    setEditing(null)
+    setIsModalOpen(true)
+  }
+
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Companies</h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+      <div className="max-w-7xl mx-auto">
+        <PageHeader 
+          title="Companies" 
+          subtitle="Management of Registered Companies"
+          showButton={user?.isAdmin}
+          onButtonClick={openCreateModal}
+          buttonText="New Company"
+        />
 
-      {user?.isAdmin && (
-        <div className="border p-4 rounded-lg space-y-4 bg-white shadow">
-          <h2 className="font-semibold">{editing ? "Edit" : "Create"} Company</h2>
-          <FormField 
-            label="NIT" 
-            value={form.nit} 
-            onChange={(e) => setForm({ ...form, nit: e.target.value })} 
-            disabled={!!editing}
-            required
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+          <CompanyTable 
+            companies={companies} 
+            onEdit={user?.isAdmin ? handleEdit : null} 
+            onDelete={user?.isAdmin ? handleDelete : null} 
           />
-          <FormField 
-            label="Name" 
-            value={form.name} 
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-          />
-          <FormField 
-            label="Address" 
-            value={form.address} 
-            onChange={(e) => setForm({ ...form, address: e.target.value })}
-            required
-          />
-          <FormField 
-            label="Phone" 
-            value={form.phone} 
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-            required
-          />
-          <div className="flex gap-2">
-            <Button onClick={handleSubmit}>{editing ? "Update" : "Create"}</Button>
-            {editing && (
-              <button onClick={handleCancel} className="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                Cancel
-              </button>
-            )}
-          </div>
         </div>
-      )}
 
-      <div className="bg-white shadow rounded-lg overflow-hidden">
-        <CompanyTable 
-          companies={companies} 
-          onEdit={user?.isAdmin ? handleEdit : null} 
-          onDelete={user?.isAdmin ? handleDelete : null} 
+        <CompanyModal
+          isOpen={isModalOpen}
+          form={form}
+          setForm={setForm}
+          editing={editing}
+          onSubmit={handleSubmit}
+          onCancel={handleCancel}
         />
       </div>
     </div>

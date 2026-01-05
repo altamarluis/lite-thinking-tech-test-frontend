@@ -1,10 +1,8 @@
-export default function Input({ as = "input", children, ...props }) {
-  const Component = as
-  const baseClass = "border border-slate-200 rounded-lg p-2 w-full"
-  
+export default function Input({ ...props }) {
   return (
-    <Component className={baseClass} {...props}>
-      {children}
-    </Component>
+    <input
+      className="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all disabled:bg-slate-100 disabled:cursor-not-allowed"
+      {...props}
+    />
   )
 }

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
 import { getProducts, createProduct, updateProduct, deleteProduct } from "../api/products.api"
 import ProductTable from "../components/organisms/ProductTable"
-import FormField from "../components/molecules/FormField"
-import Button from "../components/atoms/Button"
+import ProductModal from "../components/organisms/ProductModal"
+import PageHeader from "../components/molecules/PageHeader"
 import { useAuth } from "../context/AuthContext"
 
 export default function Products() {
   const [products, setProducts] = useState([])
   const [form, setForm] = useState({ code: "", name: "", features: "", prices: { COP: "" } })
   const [editing, setEditing] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const { user } = useAuth()
 
   const load = async () => {
@@ -29,17 +30,20 @@ export default function Products() {
       await createProduct(payload)
     }
     setForm({ code: "", name: "", features: "", prices: { COP: "" } })
+    setIsModalOpen(false)
     load()
   }
 
   const handleEdit = (product) => {
     setForm(product)
     setEditing(product.code)
+    setIsModalOpen(false)
   }
 
   const handleCancel = () => {
     setForm({ code: "", name: "", features: "", prices: { COP: "" } })
     setEditing(null)
+    setIsModalOpen(false)
   }
 
   const handleDelete = async (code) => {
@@ -48,57 +52,39 @@ export default function Products() {
     load()
   }
 
+  const openCreateModal = () => {
+    setForm({ code: "", name: "", features: "", prices: { COP: "" } })
+    setEditing(null)
+    setIsModalOpen(true)
+  }
+
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Products</h1>
+    <div className="space-y-6">
+      <PageHeader 
+        title="Products" 
+        subtitle="Product Catalog Management"
+        showButton={user?.isAdmin}
+        onButtonClick={openCreateModal}
+        buttonText="New Product"
+        icon="package"
+      />
 
-      {user?.isAdmin && (
-        <div className="border p-4 rounded-lg space-y-4 bg-white shadow">
-          <h2 className="font-semibold">{editing ? "Edit" : "Create"} Product</h2>
-          <FormField 
-            label="Code" 
-            value={form.code} 
-            onChange={(e) => setForm({ ...form, code: e.target.value })} 
-            disabled={!!editing}
-            required
-          />
-          <FormField 
-            label="Name" 
-            value={form.name} 
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-          />
-          <FormField 
-            label="Features" 
-            value={form.features} 
-            onChange={(e) => setForm({ ...form, features: e.target.value })}
-            required
-          />
-          <FormField 
-            label="Price (COP)" 
-            type="number" 
-            value={form.prices.COP} 
-            onChange={(e) => setForm({ ...form, prices: { COP: e.target.value } })}
-            required
-          />
-          <div className="flex gap-2">
-            <Button onClick={handleSubmit}>{editing ? "Update" : "Create"}</Button>
-            {editing && (
-              <button onClick={handleCancel} className="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                Cancel
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-
-      <div className="bg-white shadow rounded-lg overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
         <ProductTable 
           products={products} 
           onEdit={user?.isAdmin ? handleEdit : null} 
           onDelete={user?.isAdmin ? handleDelete : null} 
         />
       </div>
+
+      <ProductModal
+        isOpen={isModalOpen}
+        form={form}
+        setForm={setForm}
+        editing={editing}
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+      />
     </div>
   )
 }

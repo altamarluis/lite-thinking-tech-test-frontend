@@ -1,3 +1,9 @@
+/**
+ * Application routing configuration.
+ * Defines public routes and wraps the application with
+ * global providers and layout components.
+ */
+
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { AuthProvider } from "../context/AuthContext"
 import Layout from "../components/Layout"
@@ -7,6 +13,14 @@ import Products from "../pages/Products"
 import Inventory from "../pages/Inventory"
 import NotFound from "../pages/NotFound"
 
+/**
+ * AppRouter
+ *
+ * Root router component responsible for:
+ * - Providing authentication context
+ * - Defining application routes
+ * - Applying the global layout
+ */
 export default function AppRouter() {
   return (
     <AuthProvider>

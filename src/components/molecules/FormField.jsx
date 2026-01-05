@@ -1,9 +1,11 @@
 import Input from "../atoms/Input"
 
-export default function FormField({ label, ...props }) {
+export default function FormField({ label, required, ...props }) {
   return (
-    <div className="mb-3">
-      <label className="block text-sm mb-1">{label}</label>
+    <div>
+      <label className="block text-sm font-medium text-slate-700 mb-2">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
       <Input {...props} />
     </div>
   )
